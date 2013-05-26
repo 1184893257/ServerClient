@@ -1,4 +1,4 @@
 goto : 
 <a target="_blank" href="http://www.coderbbs.com/forum.php?mod=viewthread&tid=321&fromuid=9">
-╥Бв╟ WinSock C/S м╗пе
+Е╟│Хё┘ WinSock C/S И─ Д©║
 </a>
