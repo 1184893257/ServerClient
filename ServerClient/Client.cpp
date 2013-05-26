@@ -123,9 +123,9 @@ static bool verifyHead(BoundArray& buf, int& pos)
 		for(;;)
 		{
 			int pos2 = pos; // pos2是pos的临时拷贝
-			int len = buf.pollint(pos2);
-			int invlen = buf.pollint(pos2);
-			if ((len ^ invlen) == -1)
+			int n = buf.pollint(pos2);
+			int invn = buf.pollint(pos2);
+			if ((n ^ invn) == -1)
 				break;
 			pos++;	// 每次校验失败前移1个字节
 		}
@@ -147,15 +147,15 @@ void Client::onRecv(int len, const char *buf)
 		if (!verifyHead(mBuffer, pos))
 			break;				// 校验 Head 过程中数据不够多
 		int pos2 = pos;			// pos2是pos的临时拷贝
-		int len = mBuffer.pollint(pos2);
-		if (mBuffer.getSize() - pos2 < (len + 2)*sizeof(int))
+		int n = mBuffer.pollint(pos2);
+		if (mBuffer.getSize() - pos2 < (n + 2)*sizeof(int))
 			break;				// 包不完整
 
 		// 到这一步, 不会再抛异常了, 认为得到了一个正确的包
 		pos2 += sizeof(int);	// 跳过校验
 		int type = mBuffer.pollint(pos2);
 		onRecv(type, (const int*)mBuffer.at(pos2));
-		pos = pos2 + len * sizeof(int);
+		pos = pos2 + n * sizeof(int);
 	}
 
 	if (pos)	// pos 是已经扫描过的字节数,但不包括不完整的包
