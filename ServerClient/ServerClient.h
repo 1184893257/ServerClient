@@ -54,7 +54,7 @@ public:
 protected:
 	virtual void onRecv(int type, const int *buf)=0;// 用户来实现
 	virtual void onRecv(int len, const char *buf);	// 这里会调用 onRecv(int, const int*)
-	virtual void afterClose(){};
+	virtual void afterClose(){}
 private:
 	bool startRecvThread();							// 这里会启动一个接收线程
 	friend DWORD WINAPI RecvThread(LPVOID client);	// 这里会调用 onRecv(int, const char*), mSocket关闭后线程退出前调用afterClose
@@ -77,7 +77,7 @@ public:
 	void waitForClose();										// 这里会等待Accept线程结束
 protected:
 	virtual void onAccept(SOCKET socket, sockaddr_in *remote)=0;// 用户来实现
-	virtual void afterClose(){};
+	virtual void afterClose(){}
 private:
 	bool startAcceptThread();
 	friend DWORD WINAPI AcceptThread(LPVOID server);			// 这里会调用 onAccept
